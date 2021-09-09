@@ -3,6 +3,7 @@ This repository is a part of application ##Education platform##
 
 ## Rules
 
+* use templates for creating issues (tasks) and pull requests
 * you should create the new tasks in Issue of appropriate project
 * the name of task and branch from master should consist of 3 part:
   * GTW - short name of service (repo);
