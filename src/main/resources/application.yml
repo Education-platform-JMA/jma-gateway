@@ -1,0 +1,42 @@
+# Spring
+spring:
+  security:
+    oauth2:
+      client:
+        provider:
+          keycloak:
+            token-uri: http://localhost:8080/auth/realms/master/protocol/openid-connect/token
+            authorization-uri: http://localhost:8080/auth/realms/master/protocol/openid-connect/auth
+            userinfo-uri: http://localhost:8080/auth/realms/master/protocol/openid-connect/userinfo
+            user-name-attribute: preferred_username
+        registration:
+          keycloak:
+            client-id: user-service
+            client-secret: fbe1e1ba-2a63-4105-aecb-d716e5a152be
+            authorization-grant-type: authorization_code
+            redirect-uri: "{baseUrl}/login/oauth2/code/keycloak"
+
+
+  application:
+    name: gateway
+
+  cloud:
+    gateway:
+      default-filters:
+        - TokenRelay
+      routes:
+        - id: user-service
+          uri: http://127.0.0.1:8081
+          predicates:
+            - Path=/**
+          filters:
+            - RemoveRequestHeader=Cookie
+# Server
+server:
+  port: 8083
+# Eureka
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+

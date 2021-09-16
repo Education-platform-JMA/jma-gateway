@@ -1,4 +1,4 @@
-package ru.education_platform_jma.jmagateway;
+package ru.jma.gateway;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
