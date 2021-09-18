@@ -8,14 +8,14 @@ spring:
             token-uri: http://localhost:8080/auth/realms/master/protocol/openid-connect/token
             authorization-uri: http://localhost:8080/auth/realms/master/protocol/openid-connect/auth
             userinfo-uri: http://localhost:8080/auth/realms/master/protocol/openid-connect/userinfo
+            jwk-set-uri: http://localhost:8080/auth/realms/master/protocol/openid-connect/certs
             user-name-attribute: preferred_username
         registration:
           keycloak:
-            client-id: user-service
+            client-id: gateway
             client-secret: fbe1e1ba-2a63-4105-aecb-d716e5a152be
             authorization-grant-type: authorization_code
             redirect-uri: "{baseUrl}/login/oauth2/code/keycloak"
-
 
   application:
     name: gateway
@@ -25,8 +25,8 @@ spring:
       default-filters:
         - TokenRelay
       routes:
-        - id: user-service
-          uri: http://127.0.0.1:8081
+        - id: gateway
+          uri: http://127.0.0.1:8083
           predicates:
             - Path=/**
           filters:
@@ -40,3 +40,9 @@ eureka:
     serviceUrl:
       defaultZone: http://localhost:8761/eureka/
 
+# Logging
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG
