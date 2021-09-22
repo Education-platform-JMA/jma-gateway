@@ -3,14 +3,32 @@ spring:
   application:
     name: gateway
   security:
-    user:
-      name: user
-      password: user
+    oauth2:
+      client:
+        registration:
+          keycloak:
+            client-id: gateway
+            client-secret: 80670a3a-a998-45f8-85f8-1b565abb83bf
+            authorization-grant-type: authorization_code
+            redirect-uri: "{baseUrl}/login/oauth2/code/keycloak"
+            scope: openid
+        provider:
+          keycloak:
+            issuerUri: http://localhost:8080/auth/realms/master
+            user-name-attribute: username
+
 # Server
 server:
-  port: 8080
+  port: 8083
 # Eureka
 eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:8761/eureka/
+
+# Logging
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG
